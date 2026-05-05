@@ -30,9 +30,9 @@ export default function ControlBar({
                   width: 10,
                   height: 10,
                   background: i < capturedCount
-                    ? 'linear-gradient(135deg, #8b5cf6, #ec4899)'
+                    ? 'linear-gradient(135deg, #06b6d4, #3b82f6)'
                     : 'rgba(255,255,255,0.15)',
-                  boxShadow: i < capturedCount ? '0 0 8px rgba(139,92,246,0.6)' : 'none',
+                  boxShadow: i < capturedCount ? '0 0 8px rgba(6,182,212,0.6)' : 'none',
                 }}
               />
             ))}
@@ -66,9 +66,9 @@ export default function ControlBar({
           className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold cursor-pointer transition-all"
           style={{
             background: isDownloading
-              ? 'rgba(139,92,246,0.4)'
-              : 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-            boxShadow: isDownloading ? 'none' : '0 4px 20px rgba(139,92,246,0.4)',
+              ? 'rgba(6,182,212,0.4)'
+              : 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+            boxShadow: isDownloading ? 'none' : '0 4px 20px rgba(6,182,212,0.4)',
           }}
         >
           {isDownloading ? (
@@ -92,9 +92,9 @@ export default function ControlBar({
         className="relative flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-base cursor-pointer overflow-hidden transition-all"
         style={{
           background: canStart
-            ? 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)'
+            ? 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)'
             : 'rgba(255,255,255,0.1)',
-          boxShadow: canStart ? '0 8px 32px rgba(139,92,246,0.5)' : 'none',
+          boxShadow: canStart ? '0 8px 32px rgba(6,182,212,0.5)' : 'none',
           opacity: canStart ? 1 : 0.5,
         }}
       >

@@ -10,8 +10,8 @@ interface Props {
 
 const TAG_COLORS: Record<string, string> = {
   Classic:  'rgba(59,130,246,0.25)',
-  Trendy:   'rgba(236,72,153,0.25)',
-  Premium:  'rgba(139,92,246,0.25)',
+  Trendy:   'rgba(6,182,212,0.25)',
+  Premium:  'rgba(99,102,241,0.25)',
   Retro:    'rgba(245,158,11,0.25)',
   Bold:     'rgba(239,68,68,0.25)',
   Editorial:'rgba(16,185,129,0.25)',
@@ -19,8 +19,8 @@ const TAG_COLORS: Record<string, string> = {
 
 const TAG_TEXT: Record<string, string> = {
   Classic:  '#93c5fd',
-  Trendy:   '#f9a8d4',
-  Premium:  '#c4b5fd',
+  Trendy:   '#67e8f9',
+  Premium:  '#a5b4fc',
   Retro:    '#fcd34d',
   Bold:     '#fca5a5',
   Editorial:'#6ee7b7',
@@ -48,13 +48,13 @@ export default function LayoutPicker({ selected, onSelect }: Props) {
               className="relative flex flex-col items-center gap-2 p-3 rounded-xl text-left transition-all duration-200 cursor-pointer"
               style={{
                 background: isSelected
-                  ? 'rgba(139,92,246,0.2)'
+                  ? 'rgba(6,182,212,0.2)'
                   : 'rgba(255,255,255,0.04)',
                 border: isSelected
-                  ? '1.5px solid rgba(139,92,246,0.7)'
+                  ? '1.5px solid rgba(6,182,212,0.7)'
                   : '1.5px solid rgba(255,255,255,0.08)',
                 boxShadow: isSelected
-                  ? '0 0 20px rgba(139,92,246,0.25)'
+                  ? '0 0 20px rgba(6,182,212,0.25)'
                   : 'none',
               }}
             >
@@ -87,7 +87,7 @@ export default function LayoutPicker({ selected, onSelect }: Props) {
                 <motion.div
                   layoutId="layout-selected"
                   className="absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center"
-                  style={{ background: '#8b5cf6' }}
+                  style={{ background: '#06b6d4' }}
                 >
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
                     <path d="M1 4l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -103,8 +103,8 @@ export default function LayoutPicker({ selected, onSelect }: Props) {
 }
 
 function LayoutThumbnail({ layout, isSelected }: { layout: import('../lib/layouts').LayoutConfig; isSelected: boolean }) {
-  const accent = isSelected ? '#8b5cf6' : 'rgba(255,255,255,0.15)';
-  const bg = isSelected ? 'rgba(139,92,246,0.1)' : 'rgba(255,255,255,0.04)';
+  const accent = isSelected ? '#06b6d4' : 'rgba(255,255,255,0.15)';
+  const bg = isSelected ? 'rgba(6,182,212,0.1)' : 'rgba(255,255,255,0.04)';
 
   const thumbnailStyle: React.CSSProperties = {
     width: '100%',

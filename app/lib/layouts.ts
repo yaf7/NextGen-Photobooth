@@ -236,7 +236,7 @@ const diagonal: LayoutConfig = {
   canvasWidth: 1400,
   canvasHeight: 900,
   canvasBg: "#0a0a0f",
-  borderColor: "#8b5cf6",
+  borderColor: "#06b6d4",
   borderSize: 0,
   isDiagonal: true,
   slots: [
@@ -258,7 +258,7 @@ const neonSingle: LayoutConfig = {
   canvasWidth: 1000,
   canvasHeight: 1000,
   canvasBg: "#080010",
-  borderColor: "#8b5cf6",
+  borderColor: "#06b6d4",
   borderSize: 50,
   isNeon: true,
   slots: [

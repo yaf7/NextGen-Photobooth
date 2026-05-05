@@ -112,7 +112,7 @@ export default function PhotoBooth() {
         <div className="flex items-center gap-2">
           <div
             className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #8b5cf6, #ec4899)' }}
+            style={{ background: 'linear-gradient(135deg, #06b6d4, #3b82f6)' }}
           >
             <Sparkles size={16} className="text-white" />
           </div>
@@ -192,7 +192,7 @@ export default function PhotoBooth() {
                           className="rounded-lg overflow-hidden"
                           style={{
                             width: 52, height: 40,
-                            border: '2px solid rgba(139,92,246,0.7)',
+                            border: '2px solid rgba(6,182,212,0.7)',
                             boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
                           }}
                         >
@@ -263,7 +263,7 @@ export default function PhotoBooth() {
                     background: 'rgba(255,255,255,0.05)',
                     border: '1px solid rgba(255,255,255,0.1)',
                   }}
-                  onFocus={e => (e.currentTarget.style.borderColor = 'rgba(139,92,246,0.5)')}
+                  onFocus={e => (e.currentTarget.style.borderColor = 'rgba(6,182,212,0.5)')}
                   onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)')}
                 />
               </motion.div>
@@ -353,7 +353,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
       {/* Info card */}
       <div
         className="rounded-xl p-4 flex flex-col gap-2"
-        style={{ background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)' }}
+        style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)' }}
       >
         <div className="flex items-center gap-2">
           <span className="text-lg">{layout.emoji}</span>
@@ -363,7 +363,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
           </div>
         </div>
         <div className="flex gap-2 flex-wrap mt-1">
-          <Chip label={`${layout.photoCount} photo${layout.photoCount > 1 ? 's' : ''}`} color="#a78bfa" />
+          <Chip label={`${layout.photoCount} photo${layout.photoCount > 1 ? 's' : ''}`} color="#22d3ee" />
           <Chip label={`${layout.canvasWidth}×${layout.canvasHeight}px`} color="#60a5fa" />
           <Chip label={layout.tag} color="#f9a8d4" />
         </div>

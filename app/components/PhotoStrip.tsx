@@ -257,8 +257,8 @@ function DiagonalLayout({ photos, filterCss, caption }: Props) {
         style={{
           left: '42%',
           width: 4,
-          background: 'linear-gradient(180deg, #8b5cf6, #ec4899)',
-          boxShadow: '0 0 16px rgba(139,92,246,0.7)',
+          background: 'linear-gradient(180deg, #06b6d4, #3b82f6)',
+          boxShadow: '0 0 16px rgba(6,182,212,0.7)',
           transform: 'skewX(-8deg)',
           transformOrigin: 'top',
         }}
@@ -292,19 +292,19 @@ function NeonLayout({ photos, filterCss, caption }: Props) {
       <motion.div
         className="absolute inset-4 rounded-xl pointer-events-none"
         style={{
-          border: '2px solid #8b5cf6',
-          boxShadow: '0 0 20px #8b5cf6, inset 0 0 20px rgba(139,92,246,0.2)',
+          border: '2px solid #06b6d4',
+          boxShadow: '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
         }}
         animate={{ boxShadow: [
-          '0 0 20px #8b5cf6, inset 0 0 20px rgba(139,92,246,0.2)',
-          '0 0 40px #ec4899, inset 0 0 30px rgba(236,72,153,0.2)',
-          '0 0 20px #8b5cf6, inset 0 0 20px rgba(139,92,246,0.2)',
+          '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
+          '0 0 40px #3b82f6, inset 0 0 30px rgba(59,130,246,0.2)',
+          '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
         ]}}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       />
       {caption && (
         <div className="absolute bottom-6 left-0 right-0 text-center">
-          <p className="text-xs font-semibold" style={{ color: '#c4b5fd', textShadow: '0 0 8px rgba(139,92,246,0.8)' }}>
+          <p className="text-xs font-semibold" style={{ color: '#67e8f9', textShadow: '0 0 8px rgba(6,182,212,0.8)' }}>
             {caption}
           </p>
         </div>

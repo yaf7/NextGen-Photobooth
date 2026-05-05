@@ -34,12 +34,12 @@ export default function CountdownOverlay({ value }: Props) {
                 className="font-display font-black leading-none select-none"
                 style={{
                   fontSize: value === 0 ? '6rem' : '12rem',
-                  background: 'linear-gradient(135deg, #a78bfa, #f472b6)',
+                  background: 'linear-gradient(135deg, #22d3ee, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   textShadow: 'none',
-                  filter: 'drop-shadow(0 0 30px rgba(167,139,250,0.7))',
+                  filter: 'drop-shadow(0 0 30px rgba(34,211,238,0.7))',
                 }}
               >
                 {display}

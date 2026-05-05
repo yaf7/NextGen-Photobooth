@@ -12,10 +12,10 @@
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-hover: rgba(255, 255, 255, 0.08);
-  --accent-purple: #8b5cf6;
-  --accent-pink: #ec4899;
-  --accent-blue: #3b82f6;
-  --accent-cyan: #06b6d4;
+  --accent-purple: #06b6d4;
+  --accent-pink: #3b82f6;
+  --accent-blue: #6366f1;
+  --accent-cyan: #22d3ee;
 }
 
 *, *::before, *::after {
@@ -71,15 +71,15 @@ body {
 
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, #a78bfa, #f472b6, #60a5fa);
+  background: linear-gradient(135deg, #22d3ee, #60a5fa, #818cf8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 /* ── Neon Glow ── */
-.neon-purple { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 60px rgba(139, 92, 246, 0.2); }
-.neon-pink   { box-shadow: 0 0 20px rgba(236, 72, 153, 0.5), 0 0 60px rgba(236, 72, 153, 0.2); }
+.neon-purple { box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 60px rgba(6, 182, 212, 0.2); }
+.neon-pink   { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2); }
 
 /* ── Flash Overlay ── */
 .flash-overlay {
@@ -120,7 +120,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(90deg, #8b5cf6, #ec4899, #3b82f6, #8b5cf6);
+  background: linear-gradient(90deg, #06b6d4, #3b82f6, #6366f1, #06b6d4);
   background-size: 200% auto;
   animation: shimmer 2s linear infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
