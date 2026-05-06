@@ -3,73 +3,72 @@ import { Sparkles, Camera, Image as ImageIcon, Zap } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-[100dvh] flex flex-col overflow-x-hidden">
+    <div className="relative min-h-[100dvh] w-full flex flex-col items-center overflow-x-hidden">
       {/* Background */}
       <div className="aurora-bg" aria-hidden="true" />
-      
+
       {/* Header */}
-      <header className="relative z-10 w-full p-6 flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex items-center gap-3">
-          <img 
-            src="/dokumen/logo-nexgen.png" 
-            alt="NextGen Logo" 
-            className="w-10 h-10 object-contain rounded-xl bg-white p-1 shadow-[0_0_15px_rgba(34,211,238,0.4)]" 
-          />
-          <span className="font-display font-bold gradient-text text-2xl tracking-tight">NextGen</span>
-        </div>
+      <header className="relative z-10 w-full p-6 flex justify-end max-w-7xl mx-auto">
         <div className="text-white/50 text-sm font-medium tracking-wide">
-          v2.0 Beta
+          v1.0 Beta
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 flex-1 flex flex-col items-center px-4 sm:px-6 text-center max-w-5xl mx-auto w-full pt-12 md:pt-24 pb-20">
-        
-        {/* Badge */}
-        <div className="glass rounded-full px-4 py-1.5 mb-8 flex items-center gap-2 text-sm text-cyan-300 font-medium border border-cyan-500/30 bg-cyan-500/10">
-          <Sparkles size={14} />
-          <span>AI-Powered Studio Experience</span>
+      <main className="relative z-10 grow shrink-0 flex flex-col items-center px-4 sm:px-6 text-center max-w-5xl mx-auto w-full pt-12 md:pt-24 pb-20">
+
+        {/* Logo Centered */}
+        <div className="flex flex-col items-center gap-4 mb-12">
+          <img
+            src="/dokumen/logo-nexgen.png"
+            alt="NextGen Logo"
+            className="w-24 h-24 object-contain rounded-2xl bg-white p-2 shadow-[0_0_30px_rgba(34,211,238,0.5)]"
+          />
+          <span className="font-display font-black gradient-text text-4xl tracking-tight">NextGen</span>
         </div>
 
         {/* Hero Title */}
-        <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-white mb-6 leading-tight">
+        <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-white mb-8 leading-snug">
           Your Digital<br />
           <span className="gradient-text drop-shadow-[0_0_40px_rgba(34,211,238,0.4)]">Photobooth</span>
         </h1>
-        
-        <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-          Create stunning photo strips and collages with real-time aesthetic filters, customizable layouts, and instant high-quality exports. 
+
+        <p className="text-xl sm:text-2xl text-white/60 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
+          Create stunning photo strips and collages with real-time aesthetic filters, customizable layouts, and instant high-quality exports.
         </p>
 
         {/* CTA Button */}
-        <div className="relative inline-flex group mt-4">
+        <div className="relative inline-flex group mt-8 shrink-0">
           <div className="absolute inset-0 rounded-full breathing-glow opacity-80 transition-all duration-300 group-hover:scale-105" />
-          <Link 
+          <Link
             href="/booth"
-            className="relative flex items-center gap-3 px-10 py-5 rounded-full text-white font-bold text-lg transition-all duration-300 group-hover:scale-105"
+            className="relative flex items-center gap-4 px-14 py-6 rounded-full text-white font-bold text-2xl transition-all duration-300 group-hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
               boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.3)',
             }}
           >
-            <Camera size={22} className="group-hover:rotate-12 transition-transform duration-300" />
+            <Camera size={32} className="group-hover:rotate-12 transition-transform duration-300" />
             <span>Enter Studio</span>
           </Link>
         </div>
 
+        {/* Spacer to prevent overlap on short screens */}
+        <div className="h-24 md:h-32 shrink-0 w-full" aria-hidden="true" />
+
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 md:mt-32 w-full text-center">
-          <FeatureCard 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-center shrink-0 z-10">
+          <FeatureCard
             icon={<Zap size={24} className="text-cyan-400" />}
             title="Real-Time Filters"
             desc="Apply premium cinematic and vintage color grading live through your webcam."
           />
-          <FeatureCard 
+          <FeatureCard
             icon={<ImageIcon size={24} className="text-blue-400" />}
             title="Aesthetic Layouts"
             desc="Choose from classic strips to modern grids, perfectly framed for sharing."
           />
-          <FeatureCard 
+          <FeatureCard
             icon={<Sparkles size={24} className="text-indigo-400" />}
             title="Instant Export"
             desc="Download high-resolution collages instantly without any watermarks."
@@ -79,7 +78,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full py-6 text-center border-t border-white/5">
+      <footer className="relative z-10 w-full py-6 text-center border-t border-white/5 shrink-0 mt-12">
         <p className="text-xs text-white/30 tracking-widest uppercase">
           Developed by <strong className="text-white/60">Deyafa Arsetya</strong>
         </p>
