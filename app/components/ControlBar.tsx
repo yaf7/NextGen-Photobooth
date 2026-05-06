@@ -89,12 +89,11 @@ export default function ControlBar({
         disabled={!canStart}
         whileHover={{ scale: canStart ? 1.04 : 1 }}
         whileTap={{ scale: canStart ? 0.96 : 1 }}
-        className="relative flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-base cursor-pointer overflow-hidden transition-all"
+        className={`relative flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-base cursor-pointer overflow-hidden transition-all ${canStart ? 'breathing-glow' : ''}`}
         style={{
           background: canStart
             ? 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)'
             : 'rgba(255,255,255,0.1)',
-          boxShadow: canStart ? '0 8px 32px rgba(6,182,212,0.5)' : 'none',
           opacity: canStart ? 1 : 0.5,
         }}
       >
@@ -111,7 +110,7 @@ export default function ControlBar({
         )}
         <Camera size={18} />
         <span>Start Capture</span>
-        <span className="text-white/60 text-sm font-normal">({photoCount} shots)</span>
+        <span className="text-white/60 text-sm font-normal">(Space)</span>
       </motion.button>
     </div>
   );

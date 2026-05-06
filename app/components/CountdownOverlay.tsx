@@ -24,22 +24,22 @@ export default function CountdownOverlay({ value }: Props) {
           <AnimatePresence mode="wait">
             <motion.div
               key={value}
-              initial={{ scale: 2.5, opacity: 0, y: -20 }}
+              initial={{ scale: 4.5, opacity: 0, y: -40 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.5, opacity: 0, y: 20 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              exit={{ scale: 0.5, opacity: 0, y: 30 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               className="flex flex-col items-center gap-4"
             >
               <span
                 className="font-display font-black leading-none select-none"
                 style={{
-                  fontSize: value === 0 ? '6rem' : '12rem',
+                  fontSize: value === 0 ? '8rem' : '18rem',
                   background: 'linear-gradient(135deg, #22d3ee, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   textShadow: 'none',
-                  filter: 'drop-shadow(0 0 30px rgba(34,211,238,0.7))',
+                  filter: 'drop-shadow(0 0 50px rgba(34,211,238,0.9))',
                 }}
               >
                 {display}

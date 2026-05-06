@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Settings2, ChevronDown, FlipHorizontal } from 'lucide-react';
 
@@ -105,17 +105,31 @@ export default function PhotoBooth() {
     if (phase !== 'setup') setPhase('setup');
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input (like caption)
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      
+      if (e.key === ' ' && phase === 'setup') {
+        e.preventDefault(); // prevent scrolling
+        startCapture();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [phase, startCapture]);
+
   return (
     <div className="relative h-[100dvh] overflow-hidden flex flex-col" style={{ zIndex: 1 }}>
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <header className="relative z-10 flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2">
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #06b6d4, #3b82f6)' }}
-          >
-            <Sparkles size={16} className="text-white" />
-          </div>
+        <div className="flex items-center gap-3">
+          <img 
+            src="/dokumen/logo-nexgen.png" 
+            alt="NextGen Logo" 
+            className="w-8 h-8 object-contain rounded-lg bg-white p-1 shadow-[0_0_10px_rgba(34,211,238,0.4)]"
+          />
           <div>
             <span className="font-display font-bold gradient-text text-xl tracking-tight pr-1">NextGen-Photobooth</span>
           </div>

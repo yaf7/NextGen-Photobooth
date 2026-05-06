@@ -6,9 +6,9 @@
 }
 
 :root {
-  --aurora-1: rgba(139, 92, 246, 0.18);
-  --aurora-2: rgba(236, 72, 153, 0.12);
-  --aurora-3: rgba(59, 130, 246, 0.12);
+  --aurora-1: rgba(6, 182, 212, 0.25);
+  --aurora-2: rgba(59, 130, 246, 0.20);
+  --aurora-3: rgba(139, 92, 246, 0.20);
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-hover: rgba(255, 255, 255, 0.08);
@@ -25,7 +25,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100%;
   overflow-x: hidden;
 }
 
@@ -139,6 +139,17 @@ body {
 
 .count-anim {
   animation: count-pulse 0.9s ease-in-out forwards;
+}
+
+/* ── Breathing Glow ── */
+@keyframes breathe {
+  0%   { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.1); }
+  50%  { box-shadow: 0 0 35px rgba(6, 182, 212, 0.8), 0 0 70px rgba(6, 182, 212, 0.4); }
+  100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.1); }
+}
+
+.breathing-glow {
+  animation: breathe 2.5s ease-in-out infinite;
 }
 
 /* ── Shot slot placeholder ── */
