@@ -92,6 +92,26 @@ function drawNeonGlow(
   ctx.shadowBlur = 0;
 }
 
+function drawPremiumBackground(ctx: CanvasRenderingContext2D, cw: number, ch: number, baseColor: string) {
+  const isLight = baseColor === "#ffffff" || baseColor === "#fdf6e3";
+  
+  // Base fill
+  ctx.fillStyle = baseColor;
+  ctx.fillRect(0, 0, cw, ch);
+  
+  // Subtle gradient overlay for depth
+  const grad = ctx.createLinearGradient(0, 0, 0, ch);
+  if (isLight) {
+    grad.addColorStop(0, "rgba(255,255,255,0.9)");
+    grad.addColorStop(1, "rgba(240,240,245,1)");
+  } else {
+    grad.addColorStop(0, "rgba(20,20,30,0.8)");
+    grad.addColorStop(1, "rgba(5,5,10,1)");
+  }
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, cw, ch);
+}
+
 function drawCaption(
   ctx: CanvasRenderingContext2D,
   caption: string,
@@ -101,28 +121,39 @@ function drawCaption(
 ) {
   if (!caption.trim()) return;
   ctx.fillStyle = color;
-  ctx.font = "bold 36px 'Outfit', 'Arial', sans-serif";
+  ctx.font = "600 32px 'Outfit', 'Arial', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(caption, cw / 2, ch - 32);
+  (ctx as any).letterSpacing = "2px";
+  ctx.fillText(caption.toUpperCase(), cw / 2, ch - 54);
+  (ctx as any).letterSpacing = "0px";
 }
 
-function drawWatermark(ctx: CanvasRenderingContext2D, cw: number, ch: number) {
+function drawWatermark(ctx: CanvasRenderingContext2D, cw: number, ch: number, isLight: boolean) {
   ctx.save();
-  ctx.globalCompositeOperation = "overlay";
-  ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-  ctx.font = "bold 12px 'Outfit', 'Arial', sans-serif";
-  ctx.textAlign = "right";
+  const color = isLight ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.4)";
+  const lineColor = isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
   
-  // Draw text with a subtle shadow
-  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
-  ctx.shadowBlur = 4;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 1;
+  // Draw subtle separator line
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(40, ch - 36);
+  ctx.lineTo(cw - 40, ch - 36);
+  ctx.stroke();
 
-  ctx.fillText("NEXTGEN", cw - 12, 24);
+  // Branding Footer
+  ctx.fillStyle = color;
+  ctx.textBaseline = "middle";
   
-  ctx.font = "10px 'Outfit', sans-serif";
-  ctx.fillText(new Date().toLocaleDateString('en-GB'), cw - 12, 38);
+  ctx.textAlign = "left";
+  ctx.font = "bold 13px 'Outfit', sans-serif";
+  (ctx as any).letterSpacing = "4px";
+  ctx.fillText("NEXTGEN STUDIO", 40, ch - 18);
+  
+  ctx.textAlign = "right";
+  ctx.font = "13px 'Inter', sans-serif";
+  (ctx as any).letterSpacing = "2px";
+  ctx.fillText(new Date().toLocaleDateString('en-GB'), cw - 40, ch - 18);
   
   ctx.restore();
 }
@@ -164,7 +195,7 @@ export async function exportCanvas(
 ): Promise<string> {
   const filterStr = filterId === "none" ? "none" : getFilterString(filterId);
   const hasCaption = caption.trim().length > 0;
-  const extraBottom = hasCaption ? 80 : 0;
+  const extraBottom = hasCaption ? 100 : 60; // Always give space for footer, extra for caption
 
   const canvas = document.createElement("canvas");
   canvas.width = layout.canvasWidth;
@@ -173,10 +204,10 @@ export async function exportCanvas(
 
   const cw = canvas.width;
   const ch = canvas.height;
+  const isLight = layout.canvasBg === "#ffffff" || layout.canvasBg === "#fdf6e3";
 
   // Background
-  ctx.fillStyle = layout.canvasBg;
-  ctx.fillRect(0, 0, cw, ch);
+  drawPremiumBackground(ctx, cw, ch, layout.canvasBg);
 
   // Load images
   const images = await Promise.all(photos.map(p => loadImage(p)));
@@ -200,7 +231,7 @@ export async function exportCanvas(
     ctx.lineTo(cw * 0.42, ch);
     ctx.stroke();
     drawCaption(ctx, caption, cw, ch, "#fff");
-    drawWatermark(ctx, cw, ch);
+    drawWatermark(ctx, cw, ch, isLight);
     return canvas.toDataURL("image/jpeg", 0.95);
   }
 
@@ -210,7 +241,7 @@ export async function exportCanvas(
       if (images[i]) drawPolaroid(ctx, images[i], slot, filterStr);
     });
     drawCaption(ctx, caption, cw, ch);
-    drawWatermark(ctx, cw, ch);
+    drawWatermark(ctx, cw, ch, isLight);
     return canvas.toDataURL("image/jpeg", 0.95);
   }
 
@@ -220,7 +251,25 @@ export async function exportCanvas(
     if (!img) return;
 
     ctx.save();
-    roundRect(ctx, slot.x, slot.y, slot.w, slot.h, layout.id === "neon-single" ? 12 : 4);
+    
+    // Draw drop shadow
+    if (isLight && !layout.showSprockets) {
+      ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
+      ctx.shadowBlur = 24;
+      ctx.shadowOffsetY = 12;
+    } else if (!isLight && !layout.isNeon && !layout.showSprockets) {
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+      ctx.shadowBlur = 30;
+      ctx.shadowOffsetY = 16;
+    }
+    
+    ctx.fillStyle = layout.canvasBg === "#ffffff" ? "#fff" : "#222";
+    const radius = layout.id === "neon-single" ? 12 : 6;
+    roundRect(ctx, slot.x, slot.y, slot.w, slot.h, radius);
+    ctx.fill();
+    
+    // Disable shadow for clipping & image drawing
+    ctx.shadowColor = "transparent";
     ctx.clip();
     ctx.filter = filterStr;
     // Cover-fit the image into the slot
@@ -250,9 +299,9 @@ export async function exportCanvas(
   }
 
   // ── Caption & Watermark ──────────────────────────────────────────────────
-  const captionColor = layout.canvasBg === "#ffffff" || layout.canvasBg === "#fdf6e3" ? "#333" : "#eee";
+  const captionColor = isLight ? "#333" : "#eee";
   drawCaption(ctx, caption, cw, ch, captionColor);
-  drawWatermark(ctx, cw, ch);
+  drawWatermark(ctx, cw, ch, isLight);
 
   return canvas.toDataURL("image/jpeg", 0.95);
 }
