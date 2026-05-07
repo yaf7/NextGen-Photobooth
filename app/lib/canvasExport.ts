@@ -101,9 +101,9 @@ function drawCaption(
 ) {
   if (!caption.trim()) return;
   ctx.fillStyle = color;
-  ctx.font = "bold 28px 'Outfit', 'Arial', sans-serif";
+  ctx.font = "bold 36px 'Outfit', 'Arial', sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(caption, cw / 2, ch - 18);
+  ctx.fillText(caption, cw / 2, ch - 32);
 }
 
 function drawWatermark(ctx: CanvasRenderingContext2D, cw: number, ch: number) {
@@ -163,18 +163,20 @@ export async function exportCanvas(
   caption: string
 ): Promise<string> {
   const filterStr = filterId === "none" ? "none" : getFilterString(filterId);
+  const hasCaption = caption.trim().length > 0;
+  const extraBottom = hasCaption ? 80 : 0;
 
   const canvas = document.createElement("canvas");
   canvas.width = layout.canvasWidth;
-  canvas.height = layout.canvasHeight;
+  canvas.height = layout.canvasHeight + extraBottom;
   const ctx = canvas.getContext("2d")!;
+
+  const cw = canvas.width;
+  const ch = canvas.height;
 
   // Background
   ctx.fillStyle = layout.canvasBg;
-  ctx.fillRect(0, 0, layout.canvasWidth, layout.canvasHeight);
-
-  const cw = layout.canvasWidth;
-  const ch = layout.canvasHeight;
+  ctx.fillRect(0, 0, cw, ch);
 
   // Load images
   const images = await Promise.all(photos.map(p => loadImage(p)));

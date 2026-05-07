@@ -145,7 +145,7 @@ function GridLayout({ layout, photos, filterCss, caption }: Props) {
   return (
     <div
       className="rounded-2xl overflow-hidden"
-      style={{ background: '#ffffff', padding: 12 }}
+      style={{ background: '#ffffff', padding: 12, paddingBottom: caption ? 16 : 12 }}
     >
       <div className="grid grid-cols-2 gap-2">
         {[0,1,2,3].map(i => (
@@ -153,7 +153,7 @@ function GridLayout({ layout, photos, filterCss, caption }: Props) {
         ))}
       </div>
       {caption && (
-        <p className="text-center text-sm font-medium mt-2" style={{ color: '#555' }}>{caption}</p>
+        <p className="text-center text-sm font-medium mt-3" style={{ color: '#555' }}>{caption}</p>
       )}
     </div>
   );
@@ -163,12 +163,12 @@ function GridLayout({ layout, photos, filterCss, caption }: Props) {
 function WideLayout({ photos, filterCss, caption }: Props) {
   return (
     <div
-      className="rounded-2xl overflow-hidden"
-      style={{ background: '#0a0a0f', padding: '24px 24px 32px', border: '2px solid #c9a96e' }}
+      className="rounded-2xl flex flex-col"
+      style={{ background: '#0a0a0f', padding: '24px 24px 24px', border: '2px solid #c9a96e' }}
     >
       <Slot index={0} src={photos[0]} filterCss={filterCss} style={{ aspectRatio: '16/9' }} radius={6} />
       {caption && (
-        <p className="text-center text-sm font-medium mt-3" style={{ color: '#c9a96e', letterSpacing: '0.1em' }}>{caption}</p>
+        <p className="text-center text-sm font-medium mt-4" style={{ color: '#c9a96e', letterSpacing: '0.1em' }}>{caption}</p>
       )}
     </div>
   );
@@ -245,11 +245,11 @@ function MagazineLayout({ photos, filterCss, caption }: Props) {
   return (
     <div
       className="rounded-2xl overflow-hidden"
-      style={{ background: '#fff', padding: 10 }}
+      style={{ background: '#fff', padding: 12 }}
     >
       <div className="flex gap-2">
         <div style={{ flex: 3 }}>
-          <Slot index={0} src={photos[0]} filterCss={filterCss} style={{ aspectRatio: '4/5' }} radius={6} />
+          <Slot index={0} src={photos[0]} filterCss={filterCss} style={{ aspectRatio: '4/5', height: '100%' }} radius={6} />
         </div>
         <div className="flex flex-col gap-2" style={{ flex: 2 }}>
           <Slot index={1} src={photos[1]} filterCss={filterCss} style={{ aspectRatio: '1/1' }} radius={6} />
@@ -257,7 +257,7 @@ function MagazineLayout({ photos, filterCss, caption }: Props) {
         </div>
       </div>
       {caption && (
-        <p className="text-center text-xs font-medium mt-2" style={{ color: '#555' }}>{caption}</p>
+        <p className="text-center text-sm font-medium mt-3" style={{ color: '#555' }}>{caption}</p>
       )}
     </div>
   );
@@ -267,46 +267,48 @@ function MagazineLayout({ photos, filterCss, caption }: Props) {
 function DiagonalLayout({ photos, filterCss, caption }: Props) {
   return (
     <div
-      className="rounded-2xl overflow-hidden relative"
-      style={{ background: '#0a0a0f', aspectRatio: '16/10' }}
+      className="rounded-2xl flex flex-col"
+      style={{ background: '#0a0a0f', border: '1px solid rgba(255,255,255,0.1)' }}
     >
-      {/* Left photo */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: 'polygon(0 0, 58% 0, 42% 100%, 0 100%)' }}
-      >
-        {photos[0] ? (
-          <img src={photos[0]} alt="Shot 1" className="absolute inset-0 w-full h-full object-cover" style={{ filter: filterCss }} />
-        ) : (
-          <div className="absolute inset-0 shot-placeholder" />
-        )}
+      <div className="relative overflow-hidden" style={{ aspectRatio: '16/10' }}>
+        {/* Left photo */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: 'polygon(0 0, 58% 0, 42% 100%, 0 100%)' }}
+        >
+          {photos[0] ? (
+            <img src={photos[0]} alt="Shot 1" className="absolute inset-0 w-full h-full object-cover" style={{ filter: filterCss }} />
+          ) : (
+            <div className="absolute inset-0 shot-placeholder" />
+          )}
+        </div>
+        {/* Right photo */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: 'polygon(58% 0, 100% 0, 100% 100%, 42% 100%)' }}
+        >
+          {photos[1] ? (
+            <img src={photos[1]} alt="Shot 2" className="absolute inset-0 w-full h-full object-cover" style={{ filter: filterCss }} />
+          ) : (
+            <div className="absolute inset-0 shot-placeholder" />
+          )}
+        </div>
+        {/* Divider */}
+        <div
+          className="absolute inset-y-0"
+          style={{
+            left: '42%',
+            width: 4,
+            background: 'linear-gradient(180deg, #06b6d4, #3b82f6)',
+            boxShadow: '0 0 16px rgba(6,182,212,0.7)',
+            transform: 'skewX(-8deg)',
+            transformOrigin: 'top',
+          }}
+        />
       </div>
-      {/* Right photo */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: 'polygon(58% 0, 100% 0, 100% 100%, 42% 100%)' }}
-      >
-        {photos[1] ? (
-          <img src={photos[1]} alt="Shot 2" className="absolute inset-0 w-full h-full object-cover" style={{ filter: filterCss }} />
-        ) : (
-          <div className="absolute inset-0 shot-placeholder" />
-        )}
-      </div>
-      {/* Divider */}
-      <div
-        className="absolute inset-y-0"
-        style={{
-          left: '42%',
-          width: 4,
-          background: 'linear-gradient(180deg, #06b6d4, #3b82f6)',
-          boxShadow: '0 0 16px rgba(6,182,212,0.7)',
-          transform: 'skewX(-8deg)',
-          transformOrigin: 'top',
-        }}
-      />
       {caption && (
-        <div className="absolute bottom-3 left-0 right-0 text-center">
-          <p className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.7)', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+        <div className="py-4 text-center border-t border-white/10" style={{ background: '#0a0a0f' }}>
+          <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.9)', letterSpacing: '0.05em' }}>
             {caption}
           </p>
         </div>
@@ -319,33 +321,35 @@ function DiagonalLayout({ photos, filterCss, caption }: Props) {
 function NeonLayout({ photos, filterCss, caption }: Props) {
   return (
     <div
-      className="rounded-2xl overflow-hidden relative"
-      style={{ background: '#080010', padding: 20, aspectRatio: '1/1' }}
+      className="rounded-2xl flex flex-col overflow-hidden"
+      style={{ background: '#080010', border: '1px solid rgba(6,182,212,0.2)' }}
     >
-      <Slot
-        index={0}
-        src={photos[0]}
-        filterCss={filterCss}
-        style={{ width: '100%', height: '100%', aspectRatio: '1/1' }}
-        radius={10}
-      />
-      {/* Neon border overlay */}
-      <motion.div
-        className="absolute inset-4 rounded-xl pointer-events-none"
-        style={{
-          border: '2px solid #06b6d4',
-          boxShadow: '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
-        }}
-        animate={{ boxShadow: [
-          '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
-          '0 0 40px #3b82f6, inset 0 0 30px rgba(59,130,246,0.2)',
-          '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
-        ]}}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      <div className="relative p-[20px]" style={{ aspectRatio: '1/1' }}>
+        <Slot
+          index={0}
+          src={photos[0]}
+          filterCss={filterCss}
+          style={{ width: '100%', height: '100%', aspectRatio: '1/1' }}
+          radius={10}
+        />
+        {/* Neon border overlay */}
+        <motion.div
+          className="absolute inset-[16px] rounded-xl pointer-events-none"
+          style={{
+            border: '2px solid #06b6d4',
+            boxShadow: '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
+          }}
+          animate={{ boxShadow: [
+            '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
+            '0 0 40px #3b82f6, inset 0 0 30px rgba(59,130,246,0.2)',
+            '0 0 20px #06b6d4, inset 0 0 20px rgba(6,182,212,0.2)',
+          ]}}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
       {caption && (
-        <div className="absolute bottom-6 left-0 right-0 text-center">
-          <p className="text-xs font-semibold" style={{ color: '#67e8f9', textShadow: '0 0 8px rgba(6,182,212,0.8)' }}>
+        <div className="pb-5 pt-1 text-center">
+          <p className="text-sm font-semibold" style={{ color: '#67e8f9', textShadow: '0 0 12px rgba(6,182,212,0.8)' }}>
             {caption}
           </p>
         </div>
