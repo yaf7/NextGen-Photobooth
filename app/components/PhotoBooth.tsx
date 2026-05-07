@@ -14,6 +14,7 @@ import ControlBar from './ControlBar';
 import { LAYOUTS, getLayout } from '../lib/layouts';
 import { getFilterCss } from '../lib/filters';
 import { exportCanvas } from '../lib/canvasExport';
+import { playCountdownBeep, playShutterClick } from '../lib/audio';
 
 type Phase = 'setup' | 'capture' | 'review';
 
@@ -51,6 +52,7 @@ export default function PhotoBooth() {
       // Countdown 3-2-1
       for (let c = 3; c >= 1; c--) {
         setCountdown(c);
+        playCountdownBeep();
         await delay(900);
       }
 
@@ -58,6 +60,7 @@ export default function PhotoBooth() {
       setCountdown(0);
       await delay(200);
       setIsFlashing(true);
+      playShutterClick();
       const photo = cameraRef.current?.capture() ?? null;
       if (photo) {
         photos.push(photo);
@@ -174,7 +177,11 @@ export default function PhotoBooth() {
                   <motion.div
                     key="camera"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: countdown ? 1 + (4 - countdown) * 0.02 : 1 
+                    }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     exit={{ opacity: 0 }}
                     className="w-full h-full relative"
                   >

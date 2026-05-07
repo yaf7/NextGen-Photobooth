@@ -78,6 +78,13 @@ export const FILTERS: FilterConfig[] = [
     cssFilter: "grayscale(100%) contrast(160%) brightness(75%)",
     swatchGradient: "linear-gradient(135deg, #0f0c29, #302b63)",
   },
+  {
+    id: "studio",
+    name: "Studio Glow",
+    emoji: "✨",
+    cssFilter: "contrast(115%) brightness(110%) saturate(120%) drop-shadow(0px 0px 4px rgba(255,255,255,0.2))",
+    swatchGradient: "linear-gradient(135deg, #e0c3fc, #8ec5fc)",
+  },
 ];
 
 export function getFilter(id: string): FilterConfig {

@@ -53,7 +53,14 @@ const CameraView = forwardRef<CameraViewHandle, Props>(
         />
 
         {/* Flash overlay */}
-        {isFlashing && <div className="flash-overlay" />}
+        {isFlashing && (
+          <div 
+            className="absolute inset-0 z-50 bg-white" 
+            style={{ 
+              animation: 'flash-out 0.4s ease-out forwards' 
+            }} 
+          />
+        )}
       </div>
     );
   }

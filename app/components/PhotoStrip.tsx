@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { LayoutConfig } from '../lib/layouts';
 
 interface Props {
@@ -11,11 +11,52 @@ interface Props {
 }
 
 export default function PhotoStrip({ layout, photos, filterCss, caption }: Props) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div id="photo-strip-preview" className="relative" style={{ maxWidth: 480, width: '100%' }}>
-        <StripRenderer layout={layout} photos={photos} filterCss={filterCss} caption={caption} />
-      </div>
+    <div className="flex flex-col items-center gap-4" style={{ perspective: 1200 }}>
+      <motion.div 
+        id="photo-strip-preview" 
+        className="relative" 
+        style={{ maxWidth: 480, width: '100%', rotateX, rotateY, transformStyle: "preserve-3d" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div style={{ transform: 'translateZ(20px)' }}>
+          <StripRenderer layout={layout} photos={photos} filterCss={filterCss} caption={caption} />
+          
+          {/* Watermark */}
+          <div 
+            className="absolute top-3 right-3 z-50 mix-blend-overlay opacity-60 flex flex-col items-end pointer-events-none"
+            style={{ color: 'white' }}
+          >
+            <div className="text-[10px] font-bold tracking-widest uppercase font-display" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.8)' }}>NEXTGEN</div>
+            <div className="text-[8px] tracking-wider opacity-80" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.8)' }}>{new Date().toLocaleDateString('en-GB')}</div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

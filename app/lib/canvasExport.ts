@@ -106,6 +106,27 @@ function drawCaption(
   ctx.fillText(caption, cw / 2, ch - 18);
 }
 
+function drawWatermark(ctx: CanvasRenderingContext2D, cw: number, ch: number) {
+  ctx.save();
+  ctx.globalCompositeOperation = "overlay";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+  ctx.font = "bold 12px 'Outfit', 'Arial', sans-serif";
+  ctx.textAlign = "right";
+  
+  // Draw text with a subtle shadow
+  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowBlur = 4;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 1;
+
+  ctx.fillText("NEXTGEN", cw - 12, 24);
+  
+  ctx.font = "10px 'Outfit', sans-serif";
+  ctx.fillText(new Date().toLocaleDateString('en-GB'), cw - 12, 38);
+  
+  ctx.restore();
+}
+
 function drawDiagonalMask(
   ctx: CanvasRenderingContext2D,
   img: HTMLImageElement,
@@ -177,6 +198,7 @@ export async function exportCanvas(
     ctx.lineTo(cw * 0.42, ch);
     ctx.stroke();
     drawCaption(ctx, caption, cw, ch, "#fff");
+    drawWatermark(ctx, cw, ch);
     return canvas.toDataURL("image/jpeg", 0.95);
   }
 
@@ -186,6 +208,7 @@ export async function exportCanvas(
       if (images[i]) drawPolaroid(ctx, images[i], slot, filterStr);
     });
     drawCaption(ctx, caption, cw, ch);
+    drawWatermark(ctx, cw, ch);
     return canvas.toDataURL("image/jpeg", 0.95);
   }
 
@@ -224,9 +247,10 @@ export async function exportCanvas(
     ctx.strokeRect(20, 20, cw - 40, ch - 40);
   }
 
-  // ── Caption ─────────────────────────────────────────────────────────────
+  // ── Caption & Watermark ──────────────────────────────────────────────────
   const captionColor = layout.canvasBg === "#ffffff" || layout.canvasBg === "#fdf6e3" ? "#333" : "#eee";
   drawCaption(ctx, caption, cw, ch, captionColor);
+  drawWatermark(ctx, cw, ch);
 
   return canvas.toDataURL("image/jpeg", 0.95);
 }
@@ -242,6 +266,7 @@ function getFilterString(id: string): string {
     lofi:    "contrast(145%) saturate(65%) brightness(82%)",
     dreamy:  "brightness(115%) saturate(80%) contrast(90%)",
     noir:    "grayscale(100%) contrast(160%) brightness(75%)",
+    studio:  "contrast(115%) brightness(110%) saturate(120%) drop-shadow(0px 0px 4px rgba(255,255,255,0.2))",
   };
   return map[id] ?? "none";
 }
