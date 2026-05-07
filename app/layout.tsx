@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "NextGen-Photobooth",
   description:
-    "Create stunning photo strips and collages with real-time filters, aesthetic layouts, and one-click download. Your premium digital photo booth experience.",
+    "Buat strip foto dan kolase memukau dengan filter real-time, tata letak estetik, dan unduhan satu-klik. Pengalaman photobooth digital premium Anda.",
   keywords: ["photo booth", "photo strip", "collage", "filters", "webcam"],
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable} h-full`}>
+    <html lang="id" className={`${outfit.variable} ${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

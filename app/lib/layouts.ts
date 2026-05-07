@@ -38,10 +38,10 @@ const GAP = 12; // gap between photos
 // ── 1. Classic Strip 2 ──────────────────────────────────────────────────────
 const strip2: LayoutConfig = {
   id: "strip-2",
-  name: "Classic Duo",
-  description: "2-shot vertical strip",
+  name: "Duo Klasik",
+  description: "Strip vertikal 2-foto",
   emoji: "🎞️",
-  tag: "Classic",
+  tag: "Klasik",
   photoCount: 2,
   previewAspect: "aspect-[2/5]",
   previewCols: 1,
@@ -59,10 +59,10 @@ const strip2: LayoutConfig = {
 // ── 2. Classic Strip 3 ──────────────────────────────────────────────────────
 const strip3: LayoutConfig = {
   id: "strip-3",
-  name: "Classic Trio",
-  description: "3-shot vertical strip",
+  name: "Trio Klasik",
+  description: "Strip vertikal 3-foto",
   emoji: "📽️",
-  tag: "Classic",
+  tag: "Klasik",
   photoCount: 3,
   previewAspect: "aspect-[1/4]",
   previewCols: 1,
@@ -81,10 +81,10 @@ const strip3: LayoutConfig = {
 // ── 3. Classic Strip 4 ──────────────────────────────────────────────────────
 const strip4: LayoutConfig = {
   id: "strip-4",
-  name: "Classic Quad",
-  description: "4-shot vertical strip",
+  name: "Quad Klasik",
+  description: "Strip vertikal 4-foto",
   emoji: "🎬",
-  tag: "Classic",
+  tag: "Klasik",
   photoCount: 4,
   previewAspect: "aspect-[1/5]",
   previewCols: 1,
@@ -104,10 +104,10 @@ const strip4: LayoutConfig = {
 // ── 4. Square Grid 2×2 ──────────────────────────────────────────────────────
 const grid2x2: LayoutConfig = {
   id: "grid-2x2",
-  name: "Square Grid",
-  description: "4-photo 2×2 collage",
+  name: "Kisi Kotak",
+  description: "Kolase 2x2 4-foto",
   emoji: "⬛",
-  tag: "Trendy",
+  tag: "Tren",
   photoCount: 4,
   previewAspect: "aspect-square",
   previewCols: 2,
@@ -130,8 +130,8 @@ const grid2x2: LayoutConfig = {
 // ── 5. Cinematic Single ─────────────────────────────────────────────────────
 const wide1: LayoutConfig = {
   id: "wide-1",
-  name: "Cinematic",
-  description: "1-shot wide frame",
+  name: "Sinematik",
+  description: "Bingkai lebar 1-foto",
   emoji: "🎥",
   tag: "Premium",
   photoCount: 1,
@@ -150,8 +150,8 @@ const wide1: LayoutConfig = {
 // ── 6. Polaroid Party ───────────────────────────────────────────────────────
 const polaroid3: LayoutConfig = {
   id: "polaroid-3",
-  name: "Polaroid Party",
-  description: "3 polaroid frames",
+  name: "Pesta Polaroid",
+  description: "3 bingkai polaroid",
   emoji: "📸",
   tag: "Retro",
   photoCount: 3,
@@ -173,8 +173,8 @@ const polaroid3: LayoutConfig = {
 // ── 7. Retro Filmstrip ──────────────────────────────────────────────────────
 const retroFilm: LayoutConfig = {
   id: "retro-film",
-  name: "Retro Film",
-  description: "4-shot horizontal filmstrip",
+  name: "Film Retro",
+  description: "Strip film horizontal 4-foto",
   emoji: "🎞",
   tag: "Retro",
   photoCount: 4,
@@ -204,8 +204,8 @@ const retroFilm: LayoutConfig = {
 // ── 8. Magazine Cover ───────────────────────────────────────────────────────
 const magazine: LayoutConfig = {
   id: "magazine",
-  name: "Magazine",
-  description: "Editorial: 1 large + 2 small",
+  name: "Majalah",
+  description: "Editorial: 1 besar + 2 kecil",
   emoji: "📰",
   tag: "Editorial",
   photoCount: 3,
@@ -227,9 +227,9 @@ const magazine: LayoutConfig = {
 const diagonal: LayoutConfig = {
   id: "diagonal",
   name: "Diagonal",
-  description: "2-photo bold diagonal",
+  description: "2-foto diagonal berani",
   emoji: "⚡",
-  tag: "Bold",
+  tag: "Berani",
   photoCount: 2,
   previewAspect: "aspect-video",
   previewCols: 2,
@@ -248,8 +248,8 @@ const diagonal: LayoutConfig = {
 // ── 10. Neon Single ─────────────────────────────────────────────────────────
 const neonSingle: LayoutConfig = {
   id: "neon-single",
-  name: "Neon Frame",
-  description: "1-shot glowing neon border",
+  name: "Bingkai Neon",
+  description: "1-foto bingkai neon bercahaya",
   emoji: "✨",
   tag: "Premium",
   photoCount: 1,

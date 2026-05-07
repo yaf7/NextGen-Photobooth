@@ -150,7 +150,7 @@ export default function PhotoBooth() {
                 style={{ background: 'rgba(239,68,68,0.2)', border: '1px solid rgba(239,68,68,0.4)' }}
               >
                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-red-400 text-xs font-semibold">REC</span>
+                <span className="text-red-400 text-xs font-semibold">REKAM</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -209,7 +209,7 @@ export default function PhotoBooth() {
                       <button
                         onClick={() => setFacingMode(m => m === 'user' ? 'environment' : 'user')}
                         className="absolute top-6 right-6 glass glass-hover p-3 rounded-full text-white/80 transition-all z-20 shadow-lg"
-                        title="Switch Camera"
+                        title="Ganti Kamera"
                       >
                         <FlipHorizontal size={20} />
                       </button>
@@ -241,7 +241,7 @@ export default function PhotoBooth() {
                       <div className="absolute top-6 left-6 glass rounded-full px-4 py-2 text-sm font-semibold text-white/90 shadow-lg z-20">
                         <div className="flex items-center gap-2">
                            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                           Shot {currentShot + 1} of {layout.photoCount}
+                           Foto {currentShot + 1} dari {layout.photoCount}
                         </div>
                       </div>
                     )}
@@ -296,7 +296,7 @@ export default function PhotoBooth() {
                     type="text"
                     value={caption}
                     onChange={e => setCaption(e.target.value)}
-                    placeholder="Add a caption to your photostrip…"
+                    placeholder="Tambahkan keterangan pada foto Anda…"
                     maxLength={60}
                     className="w-full px-5 py-4 rounded-2xl text-sm text-white placeholder-white/40 outline-none transition-all shadow-xl"
                     style={{
@@ -327,7 +327,7 @@ export default function PhotoBooth() {
             >
               <div className="flex items-center gap-3">
                 <Settings2 size={18} className="text-cyan-400" />
-                <span>Customize Style</span>
+                <span>Sesuaikan Gaya</span>
               </div>
               <ChevronDown
                 size={18}
@@ -384,7 +384,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
     >
       {/* Mobile Header / Close */}
       <div className="flex justify-between items-center lg:hidden p-5 pb-0">
-        <span className="font-semibold text-white/80 tracking-wide text-sm uppercase">Customization</span>
+        <span className="font-semibold text-white/80 tracking-wide text-sm uppercase">Kustomisasi</span>
         <button onClick={onCloseMobile} className="p-2 glass glass-hover rounded-full">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
@@ -398,7 +398,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
             activeTab === 'layout' ? 'bg-white/10 text-white shadow-lg border border-white/10' : 'text-white/50 hover:text-white/80 hover:bg-white/5'
           }`}
         >
-          Layouts
+          Tata Letak
         </button>
         <button
           onClick={() => setActiveTab('filter')}
@@ -406,7 +406,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
             activeTab === 'filter' ? 'bg-white/10 text-white shadow-lg border border-white/10' : 'text-white/50 hover:text-white/80 hover:bg-white/5'
           }`}
         >
-          Filters
+          Filter
         </button>
       </div>
 
@@ -427,7 +427,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
           <div>
             <p className="text-white/90 font-semibold text-sm">{layout.name}</p>
             <div className="flex gap-2 mt-1">
-               <span className="text-[10px] text-cyan-200 bg-cyan-500/20 px-2 py-0.5 rounded-full border border-cyan-500/20">{layout.photoCount} shots</span>
+               <span className="text-[10px] text-cyan-200 bg-cyan-500/20 px-2 py-0.5 rounded-full border border-cyan-500/20">{layout.photoCount} foto</span>
                <span className="text-[10px] text-indigo-200 bg-indigo-500/20 px-2 py-0.5 rounded-full border border-indigo-500/20">{layout.tag}</span>
             </div>
           </div>
@@ -437,7 +437,7 @@ function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilte
           <div className="text-[11px] text-white/40 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5 flex items-start gap-2">
             <Sparkles size={14} className="text-cyan-400 shrink-0 mt-0.5" />
             <span>
-              Allow camera access, pick a style, then hit <strong className="text-white/70 font-medium">Start Capture</strong> or press <kbd className="px-1.5 py-0.5 bg-black/40 rounded border border-white/10 font-mono">Space</kbd>.
+              Izinkan akses kamera, pilih gaya, lalu tekan <strong className="text-white/70 font-medium">Mulai Potret</strong> atau tekan <kbd className="px-1.5 py-0.5 bg-black/40 rounded border border-white/10 font-mono">Spasi</kbd>.
             </span>
           </div>
         )}

@@ -29,12 +29,12 @@ export default function LandingPage() {
 
         {/* Hero Title */}
         <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-white mb-8 leading-snug">
-          Your Digital<br />
-          <span className="gradient-text drop-shadow-[0_0_40px_rgba(34,211,238,0.4)]">Photobooth</span>
+          Photobooth<br />
+          <span className="gradient-text drop-shadow-[0_0_40px_rgba(34,211,238,0.4)]">Digital Anda</span>
         </h1>
 
         <p className="text-xl sm:text-2xl text-white/60 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-          Create stunning photo strips and collages with real-time aesthetic filters, customizable layouts, and instant high-quality exports.
+          Buat strip foto dan kolase memukau dengan filter estetik real-time, tata letak yang dapat disesuaikan, dan ekspor kualitas tinggi instan.
         </p>
 
         {/* CTA Button */}
@@ -49,7 +49,7 @@ export default function LandingPage() {
             }}
           >
             <Camera size={32} className="group-hover:rotate-12 transition-transform duration-300" />
-            <span>Enter Studio</span>
+            <span>Masuk Studio</span>
           </Link>
         </div>
 
@@ -60,18 +60,18 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full text-center shrink-0 z-10">
           <FeatureCard
             icon={<Zap size={24} className="text-cyan-400" />}
-            title="Real-Time Filters"
-            desc="Apply premium cinematic and vintage color grading live through your webcam."
+            title="Filter Real-Time"
+            desc="Terapkan pewarnaan sinematik dan vintage premium secara langsung melalui webcam Anda."
           />
           <FeatureCard
             icon={<ImageIcon size={24} className="text-blue-400" />}
-            title="Aesthetic Layouts"
-            desc="Choose from classic strips to modern grids, perfectly framed for sharing."
+            title="Tata Letak Estetik"
+            desc="Pilih dari strip klasik hingga kisi modern, terbingkai sempurna untuk dibagikan."
           />
           <FeatureCard
             icon={<Sparkles size={24} className="text-indigo-400" />}
-            title="Instant Export"
-            desc="Download high-resolution collages instantly without any watermarks."
+            title="Ekspor Instan"
+            desc="Unduh kolase resolusi tinggi secara instan tanpa watermark apa pun."
           />
         </div>
 
@@ -80,7 +80,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="relative z-10 w-full py-6 text-center border-t border-white/5 shrink-0 mt-12">
         <p className="text-xs text-white/30 tracking-widest uppercase">
-          Developed by <strong className="text-white/60">Deyafa Arsetya</strong>
+          Dikembangkan oleh <strong className="text-white/60">Deyafa Arsetya</strong>
         </p>
       </footer>
     </div>

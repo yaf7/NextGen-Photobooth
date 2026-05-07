@@ -10,7 +10,7 @@ export interface FilterConfig {
 export const FILTERS: FilterConfig[] = [
   {
     id: "none",
-    name: "Original",
+    name: "Asli",
     emoji: "🌈",
     cssFilter: "none",
     swatchGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
@@ -31,7 +31,7 @@ export const FILTERS: FilterConfig[] = [
   },
   {
     id: "cool",
-    name: "Cool Blue",
+    name: "Biru Sejuk",
     emoji: "🧊",
     cssFilter: "saturate(80%) hue-rotate(180deg) brightness(105%)",
     swatchGradient: "linear-gradient(135deg, #4facfe, #00f2fe)",
@@ -45,7 +45,7 @@ export const FILTERS: FilterConfig[] = [
   },
   {
     id: "fade",
-    name: "Fade",
+    name: "Pudar",
     emoji: "🌫️",
     cssFilter: "brightness(130%) saturate(60%) contrast(75%)",
     swatchGradient: "linear-gradient(135deg, #e0c3fc, #8ec5fc)",
@@ -66,7 +66,7 @@ export const FILTERS: FilterConfig[] = [
   },
   {
     id: "dreamy",
-    name: "Dreamy",
+    name: "Mimpi",
     emoji: "🌸",
     cssFilter: "brightness(115%) saturate(80%) contrast(90%) blur(0.4px)",
     swatchGradient: "linear-gradient(135deg, #ffecd2, #fcb69f)",

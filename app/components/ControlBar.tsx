@@ -38,7 +38,7 @@ export default function ControlBar({
             ))}
           </div>
           <span className="text-white/60 text-sm font-medium">
-            {capturedCount} / {photoCount} shots
+            {capturedCount} / {photoCount} foto
           </span>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function ControlBar({
           className="glass glass-hover flex items-center gap-2 px-5 py-3 rounded-full text-white/80 text-sm font-medium transition-all cursor-pointer"
         >
           <RotateCcw size={15} />
-          Retake
+          Ulangi
         </motion.button>
 
         <motion.button
@@ -72,9 +72,9 @@ export default function ControlBar({
           }}
         >
           {isDownloading ? (
-            <><Loader2 size={15} className="animate-spin" /> Rendering…</>
+            <><Loader2 size={15} className="animate-spin" /> Memproses…</>
           ) : (
-            <><Download size={15} /> Download</>
+            <><Download size={15} /> Unduh</>
           )}
         </motion.button>
       </div>
@@ -109,8 +109,8 @@ export default function ControlBar({
           />
         )}
         <Camera size={18} />
-        <span>Start Capture</span>
-        <span className="text-white/60 text-sm font-normal">(Space)</span>
+        <span>Mulai Potret</span>
+        <span className="text-white/60 text-sm font-normal">(Spasi)</span>
       </motion.button>
     </div>
   );
