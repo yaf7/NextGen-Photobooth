@@ -155,18 +155,18 @@ export default function PhotoBooth() {
       </header>
 
       {/* ── Main Layout ─────────────────────────────────────────────────── */}
-      <div className="w-full flex-1 min-h-0 flex justify-center">
-        <main className="flex-1 min-h-0 flex flex-col lg:flex-row justify-between gap-4 lg:gap-6 px-4 pb-4 sm:px-6 max-w-[1400px] w-full relative">
+      <div className="w-full flex-1 min-h-0 flex justify-center pb-6">
+        <main className="flex-1 min-h-0 flex flex-col lg:flex-row justify-center gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 max-w-[1600px] w-full relative">
 
-          {/* ── Left: Camera + Controls ─────────────────────────────────── */}
-          <div className="flex-1 flex flex-col gap-4 lg:pr-4 min-h-0">
+          {/* ── Left: Camera & Review Area ──────────────────────────────── */}
+          <div className="flex-1 flex flex-col min-h-0 relative items-center justify-center">
 
-            {/* Camera frame */}
+            {/* Main Stage (Camera or PhotoStrip) */}
             <div
-              className="relative w-full flex-1 min-h-0 rounded-2xl overflow-hidden flex items-center justify-center bg-black/20"
+              className="relative w-full flex-1 min-h-0 rounded-[32px] overflow-hidden flex items-center justify-center bg-black/40 backdrop-blur-md group"
               style={{
-                border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.05)',
               }}
             >
               <AnimatePresence mode="wait">
@@ -176,7 +176,7 @@ export default function PhotoBooth() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="w-full h-full"
+                    className="w-full h-full relative"
                   >
                     <CameraView
                       ref={cameraRef}
@@ -185,30 +185,42 @@ export default function PhotoBooth() {
                       facingMode={facingMode}
                     />
 
+                    {/* Viewfinder brackets */}
+                    <div className="absolute inset-8 pointer-events-none z-10 flex flex-col justify-between opacity-50 transition-opacity duration-500 group-hover:opacity-100 hidden sm:flex">
+                      <div className="flex justify-between">
+                        <div className="w-12 h-12 border-t-[3px] border-l-[3px] border-white/40 rounded-tl-3xl" />
+                        <div className="w-12 h-12 border-t-[3px] border-r-[3px] border-white/40 rounded-tr-3xl" />
+                      </div>
+                      <div className="flex justify-between">
+                        <div className="w-12 h-12 border-b-[3px] border-l-[3px] border-white/40 rounded-bl-3xl" />
+                        <div className="w-12 h-12 border-b-[3px] border-r-[3px] border-white/40 rounded-br-3xl" />
+                      </div>
+                    </div>
+
                     {/* Camera flip toggle */}
                     {phase === 'setup' && (
                       <button
                         onClick={() => setFacingMode(m => m === 'user' ? 'environment' : 'user')}
-                        className="absolute top-4 right-4 glass glass-hover p-2 rounded-full text-white/80 transition-all z-20"
+                        className="absolute top-6 right-6 glass glass-hover p-3 rounded-full text-white/80 transition-all z-20 shadow-lg"
                         title="Switch Camera"
                       >
-                        <FlipHorizontal size={18} />
+                        <FlipHorizontal size={20} />
                       </button>
                     )}
 
                     {/* Shot thumbnails during capture */}
                     {phase === 'capture' && capturedPhotos.length > 0 && (
-                      <div className="absolute bottom-4 right-4 flex gap-2">
+                      <div className="absolute bottom-28 right-8 flex flex-col gap-3 z-20">
                         {capturedPhotos.map((p, i) => (
                           <motion.div
                             key={i}
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="rounded-lg overflow-hidden"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="rounded-xl overflow-hidden"
                             style={{
-                              width: 52, height: 40,
-                              border: '2px solid rgba(6,182,212,0.7)',
-                              boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                              width: 64, height: 48,
+                              border: '2px solid rgba(6,182,212,0.8)',
+                              boxShadow: '0 8px 20px rgba(0,0,0,0.5)',
                             }}
                           >
                             <img src={p} alt={`Shot ${i + 1}`} className="w-full h-full object-cover" style={{ filter: filterCss }} />
@@ -219,8 +231,11 @@ export default function PhotoBooth() {
 
                     {/* Shot indicator */}
                     {phase === 'capture' && (
-                      <div className="absolute top-4 left-4 glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/80">
-                        Shot {currentShot + 1} of {layout.photoCount}
+                      <div className="absolute top-6 left-6 glass rounded-full px-4 py-2 text-sm font-semibold text-white/90 shadow-lg z-20">
+                        <div className="flex items-center gap-2">
+                           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                           Shot {currentShot + 1} of {layout.photoCount}
+                        </div>
                       </div>
                     )}
 
@@ -229,11 +244,10 @@ export default function PhotoBooth() {
                 ) : (
                   <motion.div
                     key="review"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
-                    className="w-full flex items-center justify-center p-4"
-                    style={{ minHeight: 300 }}
+                    className="w-full h-full flex items-center justify-center p-8 overflow-y-auto custom-scrollbar"
                   >
                     <PhotoStrip
                       layout={layout}
@@ -244,42 +258,53 @@ export default function PhotoBooth() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* Floating Control Bar inside Camera View at the bottom */}
+              <div className="absolute bottom-8 left-0 right-0 z-30 flex flex-col items-center gap-4 pointer-events-none">
+                 <div className="pointer-events-auto">
+                   <ControlBar
+                     phase={phase}
+                     photoCount={layout.photoCount}
+                     capturedCount={capturedPhotos.length}
+                     onStart={startCapture}
+                     onRetake={handleRetake}
+                     onDownload={handleDownload}
+                     isDownloading={isDownloading}
+                     canStart={true}
+                   />
+                 </div>
+              </div>
             </div>
 
-            {/* Control bar */}
-            <ControlBar
-              phase={phase}
-              photoCount={layout.photoCount}
-              capturedCount={capturedPhotos.length}
-              onStart={startCapture}
-              onRetake={handleRetake}
-              onDownload={handleDownload}
-              isDownloading={isDownloading}
-              canStart={true}
-            />
-
-            {/* Caption input (setup + review) */}
+            {/* Caption input (review only) */}
             <AnimatePresence>
-              {(phase === 'setup' || phase === 'review') && (
+              {phase === 'review' && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: 'auto' }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
+                  className="w-full max-w-md mt-4"
                 >
                   <input
                     type="text"
                     value={caption}
                     onChange={e => setCaption(e.target.value)}
-                    placeholder="Add a caption… (optional)"
+                    placeholder="Add a caption to your photostrip…"
                     maxLength={60}
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white/80 placeholder-white/25 outline-none transition-all"
+                    className="w-full px-5 py-4 rounded-2xl text-sm text-white placeholder-white/40 outline-none transition-all shadow-xl"
                     style={{
-                      background: 'rgba(255,255,255,0.05)',
+                      background: 'rgba(15, 23, 42, 0.6)',
                       border: '1px solid rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(20px)'
                     }}
-                    onFocus={e => (e.currentTarget.style.borderColor = 'rgba(6,182,212,0.5)')}
-                    onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)')}
+                    onFocus={e => {
+                      e.currentTarget.style.borderColor = 'rgba(6,182,212,0.6)';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(6,182,212,0.2)';
+                    }}
+                    onBlur={e => {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                      e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+                    }}
                   />
                 </motion.div>
               )}
@@ -288,27 +313,27 @@ export default function PhotoBooth() {
 
           {/* ── Right: Customization Panel ──────────────────────────────── */}
           {/* Mobile toggle */}
-          <div className="lg:hidden shrink-0">
+          <div className="lg:hidden shrink-0 mt-4">
             <button
               onClick={() => setShowPanel(v => !v)}
-              className="w-full glass rounded-xl px-4 py-3 flex items-center justify-between text-white/70 text-sm font-medium"
+              className="w-full glass rounded-2xl px-5 py-4 flex items-center justify-between text-white/90 text-sm font-semibold shadow-lg"
             >
-              <div className="flex items-center gap-2">
-                <Settings2 size={15} />
-                <span>Customize Layout & Filter</span>
+              <div className="flex items-center gap-3">
+                <Settings2 size={18} className="text-cyan-400" />
+                <span>Customize Style</span>
               </div>
               <ChevronDown
-                size={15}
-                style={{ transform: showPanel ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}
+                size={18}
+                style={{ transform: showPanel ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.3s' }}
               />
             </button>
           </div>
 
           {/* Unified panel: visible on mobile when toggled as an absolute overlay, always visible on lg+ */}
           <div className={`
-          absolute inset-x-4 bottom-[72px] top-4 z-50 lg:static lg:inset-auto lg:z-auto
-          ${showPanel ? 'block' : 'hidden'} lg:block lg:h-full lg:overflow-hidden
-        `}>
+          absolute inset-x-4 bottom-[72px] top-4 z-50 lg:static lg:inset-auto lg:z-auto lg:h-full
+          ${showPanel ? 'block' : 'hidden'} lg:block
+          `}>
             <SidePanel
               selectedLayoutId={selectedLayoutId}
               onLayoutChange={handleLayoutChange}
@@ -337,77 +362,79 @@ interface SidePanelProps {
 }
 
 function SidePanel({ selectedLayoutId, onLayoutChange, selectedFilterId, onFilterChange, previewPhoto, phase, onCloseMobile }: SidePanelProps) {
+  const [activeTab, setActiveTab] = useState<'layout' | 'filter'>('layout');
   const layout = getLayout(selectedLayoutId);
 
   return (
     <div
-      className="flex flex-col gap-5 lg:w-[320px] xl:w-[360px] glass rounded-2xl p-5 h-full overflow-y-auto lg:max-h-[calc(100vh-120px)]"
-      style={{ flexShrink: 0 }}
+      className="flex flex-col w-full h-full lg:w-[380px] xl:w-[420px] rounded-[32px] overflow-hidden relative"
+      style={{
+        background: 'rgba(15, 23, 42, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+        backdropFilter: 'blur(30px)',
+      }}
     >
       {/* Mobile Header / Close */}
-      <div className="flex justify-between items-center lg:hidden">
+      <div className="flex justify-between items-center lg:hidden p-5 pb-0">
         <span className="font-semibold text-white/80 tracking-wide text-sm uppercase">Customization</span>
         <button onClick={onCloseMobile} className="p-2 glass glass-hover rounded-full">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
       </div>
-      {/* Layout Picker */}
-      <LayoutPicker selected={selectedLayoutId} onSelect={onLayoutChange} />
 
-      <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
+      {/* Customization Tabs */}
+      <div className="flex p-1.5 gap-1.5 bg-black/40 m-5 mb-3 rounded-2xl border border-white/5">
+        <button
+          onClick={() => setActiveTab('layout')}
+          className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all ${
+            activeTab === 'layout' ? 'bg-white/10 text-white shadow-lg border border-white/10' : 'text-white/50 hover:text-white/80 hover:bg-white/5'
+          }`}
+        >
+          Layouts
+        </button>
+        <button
+          onClick={() => setActiveTab('filter')}
+          className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all ${
+            activeTab === 'filter' ? 'bg-white/10 text-white shadow-lg border border-white/10' : 'text-white/50 hover:text-white/80 hover:bg-white/5'
+          }`}
+        >
+          Filters
+        </button>
+      </div>
 
-      {/* Filter Picker */}
-      <FilterPicker
-        selected={selectedFilterId}
-        onSelect={onFilterChange}
-        previewPhoto={previewPhoto}
-      />
+      <div className="flex-1 overflow-y-auto px-5 pb-5 custom-scrollbar min-h-0">
+        {activeTab === 'layout' ? (
+          <LayoutPicker selected={selectedLayoutId} onSelect={onLayoutChange} />
+        ) : (
+          <FilterPicker selected={selectedFilterId} onSelect={onFilterChange} previewPhoto={previewPhoto} />
+        )}
+      </div>
 
-      <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
-
-      {/* Info card */}
-      <div
-        className="rounded-xl p-4 flex flex-col gap-2"
-        style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)' }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="text-lg">{layout.emoji}</span>
+      {/* Info card at the bottom */}
+      <div className="p-5 pt-4 border-t border-white/5 bg-black/20 shrink-0">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-2xl border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            {layout.emoji}
+          </div>
           <div>
-            <p className="text-white/90 text-sm font-semibold">{layout.name}</p>
-            <p className="text-white/40 text-xs">{layout.description}</p>
+            <p className="text-white/90 font-semibold text-sm">{layout.name}</p>
+            <div className="flex gap-2 mt-1">
+               <span className="text-[10px] text-cyan-200 bg-cyan-500/20 px-2 py-0.5 rounded-full border border-cyan-500/20">{layout.photoCount} shots</span>
+               <span className="text-[10px] text-indigo-200 bg-indigo-500/20 px-2 py-0.5 rounded-full border border-indigo-500/20">{layout.tag}</span>
+            </div>
           </div>
         </div>
-        <div className="flex gap-2 flex-wrap mt-1">
-          <Chip label={`${layout.photoCount} photo${layout.photoCount > 1 ? 's' : ''}`} color="#22d3ee" />
-          <Chip label={`${layout.canvasWidth}×${layout.canvasHeight}px`} color="#60a5fa" />
-          <Chip label={layout.tag} color="#f9a8d4" />
-        </div>
-      </div>
-
-      {/* Tips */}
-      {phase === 'setup' && (
-        <div className="text-xs text-white/30 leading-relaxed">
-          💡 <strong className="text-white/50">Tip:</strong> Allow camera access, pick a layout, choose a filter, then hit <em>Start Capture</em>. Each shot includes a 3-second countdown.
-        </div>
-      )}
-
-      {/* Credit */}
-      <div className="mt-auto pt-4 border-t border-white/5 text-center">
-        <span className="text-[10px] text-white/30 tracking-widest uppercase">
-          Developed by <strong className="text-white/60">Deyafa Arsetya</strong>
-        </span>
+        
+        {phase === 'setup' && (
+          <div className="text-[11px] text-white/40 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5 flex items-start gap-2">
+            <Sparkles size={14} className="text-cyan-400 shrink-0 mt-0.5" />
+            <span>
+              Allow camera access, pick a style, then hit <strong className="text-white/70 font-medium">Start Capture</strong> or press <kbd className="px-1.5 py-0.5 bg-black/40 rounded border border-white/10 font-mono">Space</kbd>.
+            </span>
+          </div>
+        )}
       </div>
     </div>
-  );
-}
-
-function Chip({ label, color }: { label: string; color: string }) {
-  return (
-    <span
-      className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-      style={{ background: `${color}22`, color, border: `1px solid ${color}44` }}
-    >
-      {label}
-    </span>
   );
 }

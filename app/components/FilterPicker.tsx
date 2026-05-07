@@ -15,12 +15,6 @@ export default function FilterPicker({ selected, onSelect, previewPhoto }: Props
 
   return (
     <div className="flex flex-col gap-3">
-      <h3
-        className="text-xs font-semibold uppercase tracking-widest"
-        style={{ color: 'rgba(255,255,255,0.4)' }}
-      >
-        Filter
-      </h3>
 
       <div
         ref={scrollRef}

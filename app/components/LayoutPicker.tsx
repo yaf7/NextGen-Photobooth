@@ -29,9 +29,6 @@ const TAG_TEXT: Record<string, string> = {
 export default function LayoutPicker({ selected, onSelect }: Props) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>
-        Choose Layout
-      </h3>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
         {LAYOUTS.map((layout, i) => {
